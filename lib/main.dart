@@ -1,19 +1,31 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
-import 'package:packages/pages/adwensd_drawer.dart';
-import 'package:packages/pages/home_page.dart';
-import 'package:packages/pages/second_page.dart';
+import 'package:packages/pages/language_page.dart';
 
-void main() => runApp(const MyApp());
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await EasyLocalization.ensureInitialized();
+
+  runApp(
+    EasyLocalization(
+        supportedLocales: const [
+          Locale('en', 'US'),
+          Locale('ru', 'RU'),
+          Locale('uz', 'UZ')
+        ],
+        path: 'assets/translations',
+        fallbackLocale: Locale('uz', 'UZ'),
+        child: MyApp()),
+  );
+}
 
 class MyApp extends StatelessWidget {
-  const MyApp({Key? key}) : super(key: key);
-
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-        title: 'Fancy Dialog Example',
-        theme: ThemeData.light(),
-        initialRoute: '/',
-        home: SecondPage());
+        localizationsDelegates: context.localizationDelegates,
+        supportedLocales: context.supportedLocales,
+        locale: context.locale,
+        home: LanguagePage());
   }
 }
