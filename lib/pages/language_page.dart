@@ -1,5 +1,6 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
+import 'package:packages/service/pref_service.dart';
 
 class LanguagePage extends StatefulWidget {
   const LanguagePage({super.key});
@@ -9,9 +10,24 @@ class LanguagePage extends StatefulWidget {
 }
 
 class _LanguagePageState extends State<LanguagePage> {
+  String email="";
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    setState(() {
+      SharedPrefService.getName().then((value) => {
+        email=value ??""
+      });
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+        title: Text(email),
+      ),
       body: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -66,7 +82,7 @@ class _LanguagePageState extends State<LanguagePage> {
                   margin: EdgeInsets.all(8),
                   height: 66,
                   color: Colors.red,
-                  child: Center(
+                  child: const Center(
                     child: Text(
                       "Russia",
                       style: TextStyle(
