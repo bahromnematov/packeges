@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:packages/model/user_model.dart';
 import 'package:packages/pages/language_page.dart';
 import 'package:packages/service/pref_service.dart';
+import 'package:packages/service/secure_storage.dart';
 
 class SharedPage extends StatefulWidget {
   const SharedPage({super.key});
@@ -28,6 +30,12 @@ class _SharedPageState extends State<SharedPage> {
     super.initState();
     _emailController = TextEditingController();
     _passwordController = TextEditingController();
+    User user1 = User("name", "email", "password");
+
+    SecureStorage.setApi("2eebeaa50122431cb3c2a603d3920bae");
+    SecureStorage.getApi().then((value) => {print(value.toString())});
+
+    SecureStorage.removeApi();
   }
 
   @override
